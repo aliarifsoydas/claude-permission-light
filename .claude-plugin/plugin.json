@@ -1,0 +1,10 @@
+{
+  "name": "camera-blink",
+  "version": "1.0.0",
+  "description": "Blinks the MacBook camera LED when Claude Code requests permission",
+  "author": "Claude Permission Light",
+  "platforms": ["macos"],
+  "dependencies": {
+    "homebrew": ["imagesnap"]
+  }
+}
