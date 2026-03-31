@@ -26,6 +26,15 @@ BLINK_TIMEOUT=60
 # imagesnap output file (discarded -- we only want the LED side-effect)
 SNAP_OUTPUT="/tmp/claude-cam-snap.jpg"
 
+# Camera device name. Set CAM_DEVICE to override auto-detection.
+# Auto-detect: prefer FaceTime camera over virtual cameras (OBS, etc.)
+if [[ -z "${CAM_DEVICE:-}" ]]; then
+  CAM_DEVICE=$(imagesnap -l 2>/dev/null | grep -i "FaceTime" | head -1 | sed 's/^=> //' || true)
+  if [[ -z "$CAM_DEVICE" ]]; then
+    CAM_DEVICE=""  # empty = imagesnap system default
+  fi
+fi
+
 # ---------------------------------------------------------------------------
 # Functions
 # ---------------------------------------------------------------------------

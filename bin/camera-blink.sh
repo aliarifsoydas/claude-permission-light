@@ -133,7 +133,12 @@ do_start() {
 
       # Camera ON phase (LED activates during capture)
       half_interval=$(echo "$BLINK_INTERVAL / 2" | bc -l 2>/dev/null || echo "0.5")
-      imagesnap -w 0 "$SNAP_OUTPUT" >/dev/null 2>&1 || {
+      # Build imagesnap args -- use -d flag only if CAM_DEVICE is set
+      snap_args=(-w 0)
+      if [[ -n "${CAM_DEVICE:-}" ]]; then
+        snap_args+=(-d "$CAM_DEVICE")
+      fi
+      imagesnap "${snap_args[@]}" "$SNAP_OUTPUT" >/dev/null 2>&1 || {
         log_error "imagesnap failed to capture -- stopping blink loop"
         break
       }
