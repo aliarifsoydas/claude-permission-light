@@ -10,7 +10,7 @@ macOS only. Bash only. No photos saved. No complicated setup.
 
 ## How It Works
 
-When Claude Code needs your permission (to edit a file, run a command, etc.), it fires a Notification hook. This tool catches that hook and starts blinking your camera LED. When you respond to the prompt, a Stop hook turns the blink off.
+When Claude Code needs your permission (to edit a file, run a command, etc.), it fires a Notification hook. This tool catches that hook and starts blinking your camera LED. When you grant permission and the tool runs, a PreToolUse hook turns the blink off.
 
 The camera LED is hardwired to the camera sensor on MacBooks -- when the camera activates, the LED turns on. This tool uses `imagesnap` to briefly activate the camera in a loop, creating a visible blink pattern.
 
@@ -53,13 +53,11 @@ The install is idempotent -- safe to run multiple times.
 
 ```bash
 # If installed via plugin:
-imagesnap -w 0 /tmp/test.jpg && rm /tmp/test.jpg   # grant camera access on first run
+/claude-permission-light:test
 
 # If installed via git clone:
 ./bin/status.sh
 ```
-
-You should see the camera LED flash briefly during the test capture.
 
 ## Uninstall
 
@@ -99,6 +97,16 @@ brew install imagesnap
         ]
       }
     ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/absolute/path/to/bin/permission-cleanup.sh"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
@@ -118,8 +126,7 @@ Replace `/absolute/path/to` with the actual path to this repository on your mach
 3. Grant camera access. Run this once and approve the macOS permission dialog:
 
 ```bash
-imagesnap -w 0 /tmp/test.jpg
-rm /tmp/test.jpg
+imagesnap -w 0 /dev/null
 ```
 
 ## Configuration
@@ -147,7 +154,7 @@ Run `./bin/status.sh` first. It checks all three components (imagesnap, hooks, b
 **Fix:** Open System Settings > Privacy & Security > Camera. Grant access to your terminal app (Terminal, iTerm2, Warp, etc.). Then test with:
 
 ```bash
-imagesnap -w 0 /tmp/test.jpg && rm /tmp/test.jpg
+imagesnap -w 0 /dev/null
 ```
 
 ### imagesnap not found
