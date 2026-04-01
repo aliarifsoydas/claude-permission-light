@@ -1,97 +1,274 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <!-- Aluminum: radial gradient simulating studio overhead light -->
+    <radialGradient id="alumLid" cx="0.5" cy="0.3" r="0.7" fx="0.5" fy="0.25">
+      <stop offset="0%" stop-color="#545456"/>
+      <stop offset="50%" stop-color="#414143"/>
+      <stop offset="100%" stop-color="#333335"/>
+    </radialGradient>
+    <!-- Edge chamfer highlight -->
+    <linearGradient id="chamfer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#fff" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.01"/>
+    </linearGradient>
+    <linearGradient id="screenBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C1C1E"/>
+      <stop offset="100%" stop-color="#161618"/>
+    </linearGradient>
+    <linearGradient id="bezel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#232325"/>
+      <stop offset="100%" stop-color="#1A1A1C"/>
+    </linearGradient>
+    <!-- Hinge: polished metal -->
+    <linearGradient id="hinge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6C6C70"/>
+      <stop offset="30%" stop-color="#545456"/>
+      <stop offset="100%" stop-color="#414143"/>
+    </linearGradient>
+    <!-- Base face -->
+    <linearGradient id="baseFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#48484A"/>
+      <stop offset="100%" stop-color="#3A3A3C"/>
+    </linearGradient>
+    <!-- Liquid Glass material -->
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="glassStroke" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.05"/>
+    </linearGradient>
+
+    <!-- LED glow -->
+    <filter id="ledGlow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Soft ambient shadow under MacBook -->
+    <filter id="ambientShadow" x="-20%" y="-10%" width="140%" height="150%">
+      <feGaussianBlur stdDeviation="28" result="blur"/>
+      <feColorMatrix in="blur" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.30 0"/>
+    </filter>
+    <!-- Contact shadow (tight, close) -->
+    <filter id="contactShadow" x="-5%" y="-2%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+    <!-- Screen inner shadow -->
+    <filter id="screenInner" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
   <style>
-    .terminal-text { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; font-size: 13px; }
+    .mono { font-family: 'SF Mono', 'Menlo', 'Monaco', monospace; }
+    .sf { font-family: 'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; }
   </style>
 
-  <!-- Background -->
-  <rect width="600" height="400" rx="12" fill="#0f172a"/>
+  <!-- Pure black bg -->
+  <rect width="1200" height="675" fill="#000"/>
 
-  <!-- MacBook body -->
-  <rect x="120" y="20" width="360" height="225" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
-  <rect x="132" y="32" width="336" height="195" rx="4" fill="#0f172a"/>
-  <rect x="270" y="22" width="60" height="10" rx="3" fill="#0f172a"/>
+  <!-- ==================== Ambient shadow (large, soft) ==================== -->
+  <ellipse cx="600" cy="395" rx="280" ry="20" fill="#000" filter="url(#ambientShadow)"/>
 
-  <!-- Camera LED -->
-  <circle cx="300" cy="27" r="3" fill="#1a1a2e" opacity="0.3">
-    <!-- Blink: 1.5s to 4s in each 8s cycle -->
-    <animate attributeName="fill" values="#1a1a2e;#22c55e;#1a1a2e" dur="1s" begin="1.5s;9.5s;17.5s;25.5s;33.5s;41.5s;49.5s" end="4s;12s;20s;28s;36s;44s;52s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" begin="1.5s;9.5s;17.5s;25.5s;33.5s;41.5s;49.5s" end="4s;12s;20s;28s;36s;44s;52s" repeatCount="indefinite"/>
-    <!-- Reset to off -->
-    <animate attributeName="fill" values="#1a1a2e;#1a1a2e" dur="0.01s" begin="4s;12s;20s;28s;36s;44s;52s" fill="freeze"/>
-    <animate attributeName="opacity" values="0.3;0.3" dur="0.01s" begin="4s;12s;20s;28s;36s;44s;52s" fill="freeze"/>
-  </circle>
+  <!-- ==================== MacBook Pro ==================== -->
+  <g transform="translate(600, 215)" filter="url(#contactShadow)">
 
-  <!-- LED glow -->
-  <circle cx="300" cy="27" r="8" fill="transparent" opacity="0">
-    <animate attributeName="fill" values="transparent;#22c55e;transparent" dur="1s" begin="1.5s;9.5s;17.5s;25.5s;33.5s;41.5s;49.5s" end="4s;12s;20s;28s;36s;44s;52s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;0.4;0" dur="1s" begin="1.5s;9.5s;17.5s;25.5s;33.5s;41.5s;49.5s" end="4s;12s;20s;28s;36s;44s;52s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;0" dur="0.01s" begin="4s;12s;20s;28s;36s;44s;52s" fill="freeze"/>
-  </circle>
+    <!-- === LID === -->
+    <!-- Aluminum body -->
+    <rect x="-260" y="-168" width="520" height="330" rx="16" fill="url(#alumLid)"/>
+    <!-- Edge chamfer highlight (thin bright border inset) -->
+    <rect x="-259" y="-167" width="518" height="328" rx="15.5" fill="none" stroke="url(#chamfer)" stroke-width="0.6"/>
+    <!-- Subtle top edge glint -->
+    <line x1="-230" y1="-167.5" x2="230" y2="-167.5" stroke="#fff" stroke-opacity="0.08" stroke-width="0.5" stroke-linecap="round"/>
 
-  <!-- Phase 1: Command (visible 0.5s-7s, then hide for reset) -->
-  <g opacity="0">
-    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.5s;8.5s;16.5s;24.5s;32.5s;40.5s;48.5s" fill="freeze"/>
-    <animate attributeName="opacity" values="1;0" dur="0.3s" begin="7s;15s;23s;31s;39s;47s;55s" fill="freeze"/>
-    <text x="148" y="65" class="terminal-text" fill="#22c55e">$</text>
-    <text x="162" y="65" class="terminal-text" fill="#94a3b8">claude "edit my config file"</text>
+    <!-- Bezel (very thin, modern MacBook Pro) -->
+    <rect x="-249" y="-158" width="498" height="312" rx="8" fill="url(#bezel)"/>
+
+    <!-- Screen -->
+    <rect x="-245" y="-154" width="490" height="304" rx="5" fill="url(#screenBg)"/>
+
+    <!-- Notch (smooth bezier curves like real MacBook) -->
+    <path d="M-38,-158 C-38,-158 -38,-143 -26,-143 L26,-143 C38,-143 38,-158 38,-158" fill="url(#bezel)"/>
+    <!-- Camera lens in notch -->
+    <circle cx="0" cy="-149.5" r="2" fill="#0C0C0E" stroke="#1C1C1E" stroke-width="0.4"/>
+    <!-- Lens inner ring -->
+    <circle cx="0" cy="-149.5" r="1" fill="#0A0A0C"/>
+
+    <!-- Camera LED -->
+    <circle cx="0" cy="-149.5" r="1.2" fill="#0A0A0C" opacity="0">
+      <animate attributeName="fill" values="#0A0A0C;#30D158;#0A0A0C" dur="0.9s" begin="2s;12s" end="6.5s;16.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="0.9s" begin="2s;12s" end="6.5s;16.5s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#0A0A0C;#0A0A0C" dur="0.01s" begin="6.5s;16.5s" fill="freeze"/>
+      <animate attributeName="opacity" values="0;0" dur="0.01s" begin="6.5s;16.5s" fill="freeze"/>
+    </circle>
+    <!-- LED glow -->
+    <circle cx="0" cy="-149.5" r="8" fill="transparent" filter="url(#ledGlow)" opacity="0">
+      <animate attributeName="fill" values="transparent;#30D158;transparent" dur="0.9s" begin="2s;12s" end="6.5s;16.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0.5;0" dur="0.9s" begin="2s;12s" end="6.5s;16.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0" dur="0.01s" begin="6.5s;16.5s" fill="freeze"/>
+    </circle>
+
+    <!-- === HINGE === -->
+    <rect x="-264" y="162" width="528" height="3" rx="0.5" fill="url(#hinge)"/>
+
+    <!-- === BASE === -->
+    <path d="M-264 165 L-286 178 Q-288 180 -285 180.5 L285 180.5 Q288 180 286 178 L264 165 Z" fill="url(#baseFace)" stroke="#48484A" stroke-width="0.3"/>
+    <!-- Trackpad indent -->
+    <rect x="-32" y="177" width="64" height="2.5" rx="1.25" fill="#505052" opacity="0.35"/>
+    <!-- Base front edge highlight -->
+    <line x1="-280" y1="180.5" x2="280" y2="180.5" stroke="#fff" stroke-opacity="0.04" stroke-width="0.3"/>
+
+
+    <!-- ========== TERMINAL CONTENT ========== -->
+
+    <!-- Window chrome -->
+    <circle cx="-228" cy="-138" r="4.5" fill="#FF5F57"/>
+    <circle cx="-213" cy="-138" r="4.5" fill="#FEBC2E"/>
+    <circle cx="-198" cy="-138" r="4.5" fill="#28C840"/>
+    <text x="0" y="-134" text-anchor="middle" class="mono" font-size="10" fill="#8E8E93" letter-spacing="0.3">claude &#x2014; ~/Desktop/project</text>
+    <line x1="-240" y1="-127" x2="240" y2="-127" stroke="#38383A" stroke-width="0.5"/>
+
+    <!-- Phase 1: User Prompt (0.5s - 9s) -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.6s" begin="0.5s;10.5s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+      <animate attributeName="opacity" values="1;0" dur="0.4s" begin="9s;19s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+
+      <rect x="-241" y="-122" width="482" height="17" fill="#1C1C2E" opacity="0.35" rx="2"/>
+      <text x="-232" y="-109" class="mono" font-size="11" fill="#BF5AF2" font-weight="500">&#x276F;</text>
+      <text x="-218" y="-109" class="mono" font-size="10.5" fill="#F5F5F7">edit my config file</text>
+    </g>
+
+    <!-- Phase 2: Permission Dialog (2s - 6.5s) -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.6s" begin="2s;12s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+      <animate attributeName="opacity" values="1;0" dur="0.4s" begin="6.5s;16.5s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+
+      <text x="-232" y="-86" class="mono" font-size="10" fill="#F5F5F7">&#x25CF; I'll edit your config file.</text>
+
+      <text x="-232" y="-70" class="mono" font-size="10" fill="#F5F5F7">&#x25CF; Editing 1 file</text>
+      <text x="-142" y="-70" class="mono" font-size="8.5" fill="#636366"> (ctrl+o to expand)</text>
+      <text x="-222" y="-56" class="mono" font-size="9" fill="#636366">&#x2514; config.json</text>
+
+      <line x1="-232" y1="-44" x2="232" y2="-44" stroke="#38383A" stroke-width="0.5"/>
+
+      <text x="-232" y="-28" class="mono" font-size="10.5" fill="#FF9F0A" font-weight="700">Edit file</text>
+
+      <text x="-222" y="-12" class="mono" font-size="10" fill="#F5F5F7">config.json</text>
+      <text x="-222" y="2" class="mono" font-size="9" fill="#30D158">+  "theme": "dark"</text>
+
+      <text x="-232" y="22" class="mono" font-size="10.5" fill="#F5F5F7" font-weight="600">Do you want to proceed?</text>
+
+      <text x="-232" y="40" class="mono" font-size="10" fill="#0A84FF">&#x276F;</text>
+      <text x="-218" y="40" class="mono" font-size="10" fill="#F5F5F7">1. Yes</text>
+      <text x="-220" y="54" class="mono" font-size="10" fill="#636366">  2. Yes, allow editing from this project</text>
+      <text x="-220" y="68" class="mono" font-size="10" fill="#636366">  3. No</text>
+
+      <line x1="-241" y1="80" x2="241" y2="80" stroke="#2C2C2E" stroke-width="0.5"/>
+      <text x="-232" y="94" class="mono" font-size="8" fill="#48484A">Esc to cancel &#x00B7; Tab to amend &#x00B7; ctrl+e to explain</text>
+    </g>
+
+    <!-- LED Active Callout (2.5s - 6.5s) -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="2.5s;12.5s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+      <animate attributeName="opacity" values="1;0" dur="0.01s" begin="6.5s;16.5s" fill="freeze"/>
+
+      <line x1="16" y1="-149" x2="70" y2="-170" stroke="#30D158" stroke-width="0.75" opacity="0.4"/>
+      <rect x="74" y="-181" width="90" height="22" rx="11" fill="#0A1A0F" stroke="#30D158" stroke-width="0.5" opacity="0.85"/>
+      <circle cx="88" cy="-170" r="3" fill="#30D158">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="0.9s" repeatCount="indefinite"/>
+      </circle>
+      <text x="98" y="-166" class="sf" font-size="10" fill="#30D158" font-weight="500" letter-spacing="0.2">LED Active</text>
+    </g>
+
+    <!-- Phase 3: Success (6.5s - 9s) -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.6s" begin="6.5s;16.5s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+      <animate attributeName="opacity" values="1;0" dur="0.4s" begin="9s;19s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+
+      <text x="-232" y="-86" class="mono" font-size="10" fill="#F5F5F7">&#x25CF; I'll edit your config file.</text>
+
+      <text x="-232" y="-70" class="mono" font-size="10" fill="#30D158">&#x2713;</text>
+      <text x="-218" y="-70" class="mono" font-size="10" fill="#F5F5F7">Edited config.json</text>
+      <text x="-218" y="-55" class="mono" font-size="8.5" fill="#636366">1 file changed &#x00B7; 0.8s</text>
+
+      <rect x="-241" y="-43" width="482" height="17" fill="#1C1C2E" opacity="0.35" rx="2"/>
+      <text x="-232" y="-30" class="mono" font-size="11" fill="#BF5AF2" font-weight="500">&#x276F;</text>
+      <rect x="-216" y="-38" width="7" height="12" fill="#BF5AF2" opacity="0.7" rx="1">
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="1s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+
+    <!-- LED Off Callout (7.5s - 9s) -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="7.5s;17.5s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1"/>
+      <animate attributeName="opacity" values="1;0" dur="0.4s" begin="9s;19s" fill="freeze"/>
+
+      <line x1="16" y1="-149" x2="70" y2="-170" stroke="#8E8E93" stroke-width="0.75" opacity="0.25"/>
+      <rect x="74" y="-181" width="74" height="22" rx="11" fill="#1C1C1E" stroke="#48484A" stroke-width="0.5" opacity="0.85"/>
+      <text x="90" y="-166" class="sf" font-size="10" fill="#8E8E93" font-weight="500" letter-spacing="0.2">LED Off</text>
+      <path d="M130 -173 L134 -167 L142 -177" fill="none" stroke="#8E8E93" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
   </g>
 
-  <!-- Phase 2: Permission prompt (visible 1.5s-7s) -->
-  <g opacity="0">
-    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="1.5s;9.5s;17.5s;25.5s;33.5s;41.5s;49.5s" fill="freeze"/>
-    <animate attributeName="opacity" values="1;0" dur="0.3s" begin="7s;15s;23s;31s;39s;47s;55s" fill="freeze"/>
-    <text x="148" y="90" class="terminal-text" fill="#facc15">⚡ Claude wants to edit config.json</text>
-    <text x="148" y="110" class="terminal-text" fill="#475569">   Allow? (y/n)</text>
+
+  <!-- ==================== Bottom Section ==================== -->
+
+  <text x="600" y="448" text-anchor="middle" class="sf" font-size="22" fill="#F5F5F7" font-weight="600" letter-spacing="-0.4">Camera LED activates when permission is needed</text>
+  <text x="600" y="476" text-anchor="middle" class="sf" font-size="14" fill="#86868B" font-weight="400" letter-spacing="0">No photos are taken &#x00B7; LED indicator only &#x00B7; macOS</text>
+
+  <!-- ===== Flow: Liquid Glass pills ===== -->
+  <g transform="translate(600, 528)">
+
+    <g transform="translate(-310, 0)">
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="url(#glass)"/>
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="none" stroke="url(#glassStroke)" stroke-width="0.5"/>
+      <line x1="17" y1="0.5" x2="103" y2="0.5" stroke="#fff" stroke-opacity="0.15" stroke-width="0.5" stroke-linecap="round"/>
+      <circle cx="18" cy="17" r="4" fill="#0A84FF" opacity="0.9"/>
+      <text x="30" y="21.5" class="sf" font-size="11" fill="#F5F5F7" font-weight="500">Permission</text>
+    </g>
+
+    <g transform="translate(-180, 0)" opacity="0.25">
+      <line x1="0" y1="17" x2="18" y2="17" stroke="#8E8E93" stroke-width="0.75"/>
+      <path d="M15 12 L22 17 L15 22" fill="none" stroke="#8E8E93" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g transform="translate(-150, 0)">
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="url(#glass)"/>
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="none" stroke="url(#glassStroke)" stroke-width="0.5"/>
+      <line x1="17" y1="0.5" x2="103" y2="0.5" stroke="#fff" stroke-opacity="0.15" stroke-width="0.5" stroke-linecap="round"/>
+      <circle cx="18" cy="17" r="4" fill="#30D158" opacity="0.9"/>
+      <text x="30" y="21.5" class="sf" font-size="11" fill="#F5F5F7" font-weight="500">LED Blinks</text>
+    </g>
+
+    <g transform="translate(-20, 0)" opacity="0.25">
+      <line x1="0" y1="17" x2="18" y2="17" stroke="#8E8E93" stroke-width="0.75"/>
+      <path d="M15 12 L22 17 L15 22" fill="none" stroke="#8E8E93" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g transform="translate(10, 0)">
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="url(#glass)"/>
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="none" stroke="url(#glassStroke)" stroke-width="0.5"/>
+      <line x1="17" y1="0.5" x2="103" y2="0.5" stroke="#fff" stroke-opacity="0.15" stroke-width="0.5" stroke-linecap="round"/>
+      <circle cx="18" cy="17" r="4" fill="#FFD60A" opacity="0.9"/>
+      <text x="30" y="21.5" class="sf" font-size="11" fill="#F5F5F7" font-weight="500">User Acts</text>
+    </g>
+
+    <g transform="translate(140, 0)" opacity="0.25">
+      <line x1="0" y1="17" x2="18" y2="17" stroke="#8E8E93" stroke-width="0.75"/>
+      <path d="M15 12 L22 17 L15 22" fill="none" stroke="#8E8E93" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g transform="translate(170, 0)">
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="url(#glass)"/>
+      <rect x="0" y="0" width="120" height="34" rx="17" fill="none" stroke="url(#glassStroke)" stroke-width="0.5"/>
+      <line x1="17" y1="0.5" x2="103" y2="0.5" stroke="#fff" stroke-opacity="0.15" stroke-width="0.5" stroke-linecap="round"/>
+      <circle cx="18" cy="17" r="4" fill="#48484A" opacity="0.9"/>
+      <text x="30" y="21.5" class="sf" font-size="11" fill="#F5F5F7" font-weight="500">LED Stops</text>
+    </g>
   </g>
 
-  <!-- LED label (visible 1.5s-4s) -->
-  <g opacity="0">
-    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="1.5s;9.5s;17.5s;25.5s;33.5s;41.5s;49.5s" fill="freeze"/>
-    <animate attributeName="opacity" values="1;0" dur="0.01s" begin="4s;12s;20s;28s;36s;44s;52s" fill="freeze"/>
-    <line x1="320" y1="27" x2="390" y2="15" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,3">
-      <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
-    </line>
-    <text x="395" y="19" font-family="sans-serif" font-size="11" fill="#22c55e" font-weight="bold">
-      LED blinking
-      <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite"/>
-    </text>
-  </g>
-
-  <!-- Phase 3: User approves (visible 4s-7s) -->
-  <g opacity="0">
-    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="4s;12s;20s;28s;36s;44s;52s" fill="freeze"/>
-    <animate attributeName="opacity" values="1;0" dur="0.3s" begin="7s;15s;23s;31s;39s;47s;55s" fill="freeze"/>
-    <text x="148" y="140" class="terminal-text" fill="#22c55e">y</text>
-    <text x="148" y="165" class="terminal-text" fill="#94a3b8">✓ Config updated</text>
-  </g>
-
-  <!-- LED off label (visible 5s-7s) -->
-  <g opacity="0">
-    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="5s;13s;21s;29s;37s;45s;53s" fill="freeze"/>
-    <animate attributeName="opacity" values="1;0" dur="0.3s" begin="7s;15s;23s;31s;39s;47s;55s" fill="freeze"/>
-    <text x="395" y="19" font-family="sans-serif" font-size="11" fill="#475569">LED off ✓</text>
-  </g>
-
-  <!-- MacBook base -->
-  <path d="M100 245 L120 245 L130 260 L470 260 L480 245 L500 245 L490 270 L110 270 Z" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-  <rect x="255" y="248" width="90" height="5" rx="2" fill="#334155"/>
-
-  <!-- Bottom info text -->
-  <text x="300" y="310" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#e2e8f0" font-weight="600">Camera LED blinks when Claude needs permission</text>
-  <text x="300" y="335" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#64748b">No photos saved · LED only · macOS</text>
-
-  <!-- Flow diagram -->
-  <g transform="translate(70, 355)">
-    <rect x="0" y="0" width="100" height="24" rx="4" fill="#1e3a5f"/>
-    <text x="50" y="16" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#60a5fa">Permission asked</text>
-    <text x="110" y="16" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#475569">→</text>
-    <rect x="120" y="0" width="100" height="24" rx="4" fill="#14532d"/>
-    <text x="170" y="16" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4ade80">LED blinks</text>
-    <text x="230" y="16" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#475569">→</text>
-    <rect x="240" y="0" width="100" height="24" rx="4" fill="#1e3a5f"/>
-    <text x="290" y="16" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#60a5fa">User responds</text>
-    <text x="350" y="16" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#475569">→</text>
-    <rect x="360" y="0" width="100" height="24" rx="4" fill="#1c1917"/>
-    <text x="410" y="16" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a8a29e">LED stops</text>
-  </g>
+  <!-- Footer -->
+  <text x="600" y="600" text-anchor="middle" class="sf" font-size="10" fill="#3A3A3C" font-weight="400" letter-spacing="0.08em">Privacy by design</text>
 </svg>
