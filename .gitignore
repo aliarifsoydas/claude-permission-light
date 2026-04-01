@@ -1,0 +1,10 @@
+# GSD workflow files
+.planning/
+.claude/
+
+# macOS
+.DS_Store
+
+# Temp files
+/tmp/
+*.jpg
