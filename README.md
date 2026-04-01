@@ -166,15 +166,26 @@ brew install imagesnap
 
 **Symptom:** LED keeps blinking after you approve or deny the permission prompt.
 
-**Cause:** Claude Code fires the Stop hook when the session task completes, not immediately when you respond. There may be a slight delay.
-
-**Note:** The blink self-terminates after 10 minutes as a safety measure, so it will always stop eventually.
+**Fix:** Run `/claude-permission-light:setup fix` to kill a stuck blink process. The PreToolUse hook should stop the blink automatically when permission is granted. If it persists, the blink self-terminates after 10 minutes as a safety measure.
 
 ### Multiple Claude Code sessions
 
 **Symptom:** Blink behavior seems inconsistent with multiple sessions open.
 
 **Note:** Only one blink process runs at a time. A new permission prompt reuses the existing blink or replaces it. This is expected behavior.
+
+## Plugin Commands
+
+If installed via plugin, these slash commands are available in any Claude Code session:
+
+| Command | Description |
+|---------|-------------|
+| `/claude-permission-light:status` | Check installation health |
+| `/claude-permission-light:test` | Test LED blink on real hardware |
+| `/claude-permission-light:setup check` | Check dependencies |
+| `/claude-permission-light:setup install` | Install missing dependencies |
+| `/claude-permission-light:setup fix` | Diagnose and fix common issues |
+| `/claude-permission-light:uninstall` | Stop blink, clean state, remove plugin |
 
 ## Project Structure
 
