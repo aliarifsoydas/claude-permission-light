@@ -22,7 +22,6 @@ source "${SCRIPT_DIR}/../lib/common.sh"
 cleanup() {
   rm -f "$PID_FILE"
   rmdir "$LOCK_DIR" 2>/dev/null || true
-  rm -f "$SNAP_OUTPUT"
   log "Blink cleanup complete"
 }
 

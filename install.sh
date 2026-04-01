@@ -115,8 +115,7 @@ fi
 # ---------------------------------------------------------------------------
 
 echo "Testing camera access (you may see a macOS permission dialog)..."
-imagesnap -w 0 /tmp/claude-cam-install-test.jpg >/dev/null 2>&1 || true
-rm -f /tmp/claude-cam-install-test.jpg
+imagesnap -w 0 /dev/null >/dev/null 2>&1 || true
 
 # ---------------------------------------------------------------------------
 # Success

@@ -23,8 +23,9 @@ BLINK_INTERVAL="${CAM_BLINK_INTERVAL:-1}"
 # Max seconds before self-termination
 BLINK_TIMEOUT=600
 
-# imagesnap output file (discarded -- we only want the LED side-effect)
-SNAP_OUTPUT="/tmp/claude-cam-snap.jpg"
+# imagesnap output -- written to /dev/null so no photo is ever saved.
+# Privacy: we only want the LED side-effect, not the image.
+SNAP_OUTPUT="/dev/null"
 
 # Camera device name. Set CAM_DEVICE to override auto-detection.
 # Auto-detect: prefer FaceTime camera over virtual cameras (OBS, etc.)

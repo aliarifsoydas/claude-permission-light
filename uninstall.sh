@@ -26,9 +26,6 @@ SETTINGS_FILE="${HOME}/.claude/settings.json"
 echo "Stopping blink process..."
 "${SCRIPT_DIR}/bin/camera-blink.sh" stop 2>/dev/null || true
 
-# Clean up the snap output file
-rm -f "$SNAP_OUTPUT"
-
 # If state directory exists and is now empty, remove it
 if [[ -d "$STATE_DIR" ]]; then
   rmdir "$STATE_DIR" 2>/dev/null || true
