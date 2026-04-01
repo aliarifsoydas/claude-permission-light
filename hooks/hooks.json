@@ -21,6 +21,16 @@
         ]
       }
     ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/bin/permission-cleanup.sh"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
