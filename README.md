@@ -185,6 +185,9 @@ If installed via plugin, these slash commands are available in any Claude Code s
 | `/claude-permission-light:setup check` | Check dependencies |
 | `/claude-permission-light:setup install` | Install missing dependencies |
 | `/claude-permission-light:setup fix` | Diagnose and fix common issues |
+| `/claude-permission-light:permission` | Check camera permission status |
+| `/claude-permission-light:permission grant` | Trigger macOS camera permission dialog |
+| `/claude-permission-light:permission revoke` | Guide to revoke camera access |
 | `/claude-permission-light:uninstall` | Stop blink, clean state, remove plugin |
 
 ## Project Structure
