@@ -3,7 +3,7 @@
 Blinks the MacBook camera LED when Claude Code asks for permission. A physical notification so you never miss a permission prompt -- even when you are not watching the terminal.
 
 <p align="center">
-  <img src="demo.svg" alt="Demo: Camera LED blinks when Claude asks for permission" width="600">
+  <img src="demo.svg" alt="Demo: Camera LED blinks when Claude asks for permission" width="960">
 </p>
 
 macOS only. Bash only. No photos saved. No complicated setup.
