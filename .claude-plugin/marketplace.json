@@ -1,10 +1,13 @@
 {
   "name": "claude-permission-light",
+  "owner": {
+    "name": "aliarifsoydas"
+  },
   "plugins": [
     {
       "name": "claude-permission-light",
-      "description": "Blinks the MacBook camera LED when Claude Code requests permission — physical notification so you never miss a prompt",
-      "version": "1.0.0"
+      "description": "Blinks the MacBook camera LED when Claude Code requests permission",
+      "source": "./"
     }
   ]
 }

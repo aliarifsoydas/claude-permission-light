@@ -4,6 +4,5 @@
   "description": "Blinks the MacBook camera LED when Claude Code requests permission",
   "author": { "name": "aliarifsoydas" },
   "license": "MIT",
-  "platforms": ["macos"],
-  "hooks": "./hooks/hooks.json"
+  "platforms": ["macos"]
 }
