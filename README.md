@@ -24,7 +24,7 @@ The blink also self-terminates after 10 minutes as a safety measure, so the came
 
 ```bash
 brew install imagesnap
-claude plugin marketplace add https://github.com/aliarif/claude-permission-light.git
+claude plugin marketplace add https://github.com/aliarifsoydas/claude-permission-light.git
 claude plugin install claude-permission-light@claude-permission-light
 ```
 
@@ -33,7 +33,7 @@ Done. Start a new Claude Code session and the LED will blink on permission promp
 ### Option 2: Git Clone + Script
 
 ```bash
-git clone https://github.com/aliarif/claude-permission-light.git
+git clone https://github.com/aliarifsoydas/claude-permission-light.git
 cd claude-permission-light
 ./install.sh
 ```

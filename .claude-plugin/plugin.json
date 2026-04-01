@@ -2,7 +2,7 @@
   "name": "claude-permission-light",
   "version": "1.0.0",
   "description": "Blinks the MacBook camera LED when Claude Code requests permission",
-  "author": { "name": "aliarif" },
+  "author": { "name": "aliarifsoydas" },
   "license": "MIT",
   "platforms": ["macos"],
   "hooks": "./hooks/hooks.json"
