@@ -10,7 +10,7 @@ When Claude Code needs your permission (to edit a file, run a command, etc.), it
 
 The camera LED is hardwired to the camera sensor on MacBooks -- when the camera activates, the LED turns on. This tool uses `imagesnap` to briefly activate the camera in a loop, creating a visible blink pattern.
 
-The blink also self-terminates after 60 seconds as a safety measure, so the camera never runs indefinitely.
+The blink also self-terminates after 10 minutes as a safety measure, so the camera never runs indefinitely.
 
 ## Requirements
 
@@ -20,8 +20,20 @@ The blink also self-terminates after 60 seconds as a safety measure, so the came
 
 ## Install
 
+### Option 1: Plugin Install (Recommended)
+
 ```bash
-git clone <repo-url>
+brew install imagesnap
+claude plugin marketplace add https://github.com/aliarif/claude-permission-light.git
+claude plugin install claude-permission-light@claude-permission-light
+```
+
+Done. Start a new Claude Code session and the LED will blink on permission prompts.
+
+### Option 2: Git Clone + Script
+
+```bash
+git clone https://github.com/aliarif/claude-permission-light.git
 cd claude-permission-light
 ./install.sh
 ```
@@ -36,18 +48,26 @@ The install is idempotent -- safe to run multiple times.
 ### Verify Installation
 
 ```bash
+# If installed via plugin:
+imagesnap -w 0 /tmp/test.jpg && rm /tmp/test.jpg   # grant camera access on first run
+
+# If installed via git clone:
 ./bin/status.sh
 ```
 
-You should see `[OK]` for imagesnap and both hooks. The blink process line shows `[--]` when idle, which is normal.
+You should see the camera LED flash briefly during the test capture.
 
 ## Uninstall
 
 ```bash
+# Plugin install:
+claude plugin uninstall claude-permission-light
+
+# Git clone install:
 ./uninstall.sh
 ```
 
-Removes hooks from `~/.claude/settings.json`, stops any running blink process, and cleans up state files. Does not remove `imagesnap` or `jq`.
+Removes hooks, stops any running blink process, and cleans up state files. Does not remove `imagesnap`.
 
 ## Manual Setup
 
@@ -148,7 +168,7 @@ brew install imagesnap
 
 **Cause:** Claude Code fires the Stop hook when the session task completes, not immediately when you respond. There may be a slight delay.
 
-**Note:** The blink self-terminates after 60 seconds as a safety measure, so it will always stop eventually.
+**Note:** The blink self-terminates after 10 minutes as a safety measure, so it will always stop eventually.
 
 ### Multiple Claude Code sessions
 

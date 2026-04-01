@@ -21,7 +21,7 @@ LOCK_DIR="${STATE_DIR}/blink.lock"
 BLINK_INTERVAL="${CAM_BLINK_INTERVAL:-1}"
 
 # Max seconds before self-termination
-BLINK_TIMEOUT=60
+BLINK_TIMEOUT=600
 
 # imagesnap output file (discarded -- we only want the LED side-effect)
 SNAP_OUTPUT="/tmp/claude-cam-snap.jpg"
